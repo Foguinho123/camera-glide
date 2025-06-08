@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>QR Code Scanner</title>
+  <meta charset="utf-8">
+  <script src="https://unpkg.com/html5-qrcode"></script>
+</head>
+<body style="text-align:center; font-family:sans-serif;">
+  <h2>Escaneie o QR Code</h2>
+  <div id="reader" style="width:300px; margin:auto;"></div>
+  <script>
+    function sendToGlide(data) {
+      window.location.href = `https://YOUR_GLIDE_URL/?codigo=${data}`;
+    }
+    const html5QrCode = new Html5Qrcode("reader");
+    html5QrCode.start(
+      {facingMode:"environment"},
+      {fps:10, qrbox:250},
+      (decodedText, _) => {
+        html5QrCode.stop();
+        sendToGlide(decodedText);
+      }
+    );
+  </script>
+</body>
+</html>
