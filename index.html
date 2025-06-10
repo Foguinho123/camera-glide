@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Leitor de QR Code</title>
+    <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+  </head>
+  <body>
+    <h2>Escaneie o QR Code</h2>
+    <div id="reader" style="width: 300px;"></div>
+
+    <script>
+      function onScanSuccess(qrCodeMessage) {
+        // Redireciona para o seu app com o valor escaneado
+        window.location.href = `https://inventory-management-wjcm.glide.page/?QRCODE=${encodeURIComponent(qrCodeMessage)}`;
+      }
+
+      const html5QrCode = new Html5Qrcode("reader");
+
+      html5QrCode.start(
+        { facingMode: "environment" }, // Usa a câmera traseira
+        {
+          fps: 10,
+          qrbox: 250
+        },
+        onScanSuccess
+      ).catch(err => {
+        console.error("Erro ao acessar a câmera: ", err);
+      });
+    </script>
+  </body>
+</html>
